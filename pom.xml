@@ -34,6 +34,7 @@
         <maven.jar.version>3.3.0</maven.jar.version>
         <maven.deploy.plugin>2.7</maven.deploy.plugin>
         <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
+        <spotless.version>2.43.0</spotless.version>
         <package.directory>${project.build.directory}/docker-resources</package.directory>
     </properties>
 
@@ -157,6 +158,37 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless.version}</version>
+
+                <configuration>
+                    <java>
+                        <includes>
+                            <include>src/main/java/**/*.java</include>
+                            <include>src/test/java/**/*.java</include>
+                        </includes>
+                        <removeUnusedImports />
+                        <toggleOffOn/>
+                        <trimTrailingWhitespace/>
+                        <endWithNewline/>
+                        <indent>
+                            <tabs>true</tabs>
+                            <spacesPerTab>2</spacesPerTab>
+                        </indent>
+                        <googleJavaFormat>
+                            <style>GOOGLE</style>
+                            <reflowLongStrings>true</reflowLongStrings>
+                            <formatJavadoc>false</formatJavadoc>
+                        </googleJavaFormat>
+                        <formatAnnotations />
+                        <licenseHeader>
+                            <content>/* Incubyte QA Automation assignment */</content>
+                        </licenseHeader>
+                    </java>
+                </configuration>
             </plugin>
         </plugins>
         <testResources>
